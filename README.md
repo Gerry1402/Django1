@@ -36,3 +36,16 @@ Initialize the server:
 ```bash
 python manage.py runserver
 ```
+To stop the server `Ctrl+C`
+
+Apply the firsts migrations:
+```bash
+python manage.py migrate
+```
+
+Create the first superuser (admin):
+```bash
+python manage.py createsuperuser
+```
+
+Now, use `runserver` and go to `http://127.0.0.1:8000/admin/` and login.
