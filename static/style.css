@@ -1,4 +1,33 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-image: url(/static/images/background.jpg);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-position-x: center;
+    background-size:cover;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+}
+
+#logo div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+nav {
+    height: 50px;
+    width: 100%;
+}
+
 p {
-    color: rgb(255, 0, 0);
+    color: rgb(81, 255, 0);
     background-color: blue;
 }
