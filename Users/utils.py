@@ -18,7 +18,7 @@ def get_country_from_ip(request):
         country = pycountry.countries.get(name=country).alpha_2
     return
 
-def lista_paises():
+def lista_paises(idioma_iso='es'):
     """_summary_
 
     Returns:
@@ -26,8 +26,8 @@ def lista_paises():
     """
     lista_paises = []
     for pais in pycountry.countries:
-        trad = gettext.translation('iso3166-1', pycountry.LOCALES_DIR, languages=['es'])
+        trad = gettext.translation('iso3166-1', pycountry.LOCALES_DIR, languages=[idioma_iso])
         trad.install()
         pais_trad = _(pais.name)
         lista_paises.append((pais.alpha_2, pais_trad))
-    return lista_paises
+    return sorted(lista_paises, key=lambda x: x[1])

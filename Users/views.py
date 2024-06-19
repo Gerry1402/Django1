@@ -15,7 +15,6 @@ def segundo(request):
     return render(request, '2_segundo.html')
 
 def formulario(request):
-    country = get_country_from_ip(request)
     if request.method == 'POST':
         form = Part(request.POST)
         if form.is_valid():
