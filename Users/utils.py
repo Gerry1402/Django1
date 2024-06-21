@@ -1,22 +1,25 @@
-from ipware import get_client_ip
-from django.contrib.gis.geoip2 import GeoIP2
 import pycountry
 import gettext
+import re
 
-
-def get_country_from_ip(request):
-    country=None
-    ip, is_routable = get_client_ip(request)
-    if ip is None:
-        return
-    g = GeoIP2()
-    try:
-        country = g.country(ip)['country_name']
-    except Exception:
-        country = None
-    if country:
-        country = pycountry.countries.get(name=country).alpha_2
-    return
+def validate_password_format(contrasena, contrasena_2):
+    errores = []
+    if contrasena != contrasena_2:
+        errores.append('Las contraseñas no coinciden')
+    if len(contrasena) < 8:
+        errores.append('La contraseña debe tener al menos 8 caracteres.')
+    if not re.search(r'[A-Z]', contrasena):
+        errores.append('La contraseña debe tener al menos una letra mayúscula.')
+    if not re.search(r'[a-z]', contrasena):
+        errores.append('La contraseña debe tener al menos una letra minúscula.')
+    if not re.search(r'\d', contrasena):
+        errores.append('La contraseña debe tener al menos un número.')
+    if not re.search(r'[!@#$%^&*(),.?":{}|<>]', contrasena):
+        errores.append('La contraseña debe tener al menos un carácter especial.')
+    if errores != []:
+        return errores
+    else:
+        return True
 
 def lista_paises(idioma_iso='es'):
     """_summary_
