@@ -25,6 +25,12 @@
             <a href="#"><div>{% trans 'Cerrar sesion' %}</div></a>
         </div>
     </nav>
+    {% if request.user.is_authenticated %}
+        <p>Bienvenido, {{ request.user.nombre }}!</p>
+        <a href="{% url 'cerrar sesion' %}">Logout</a>
+    {% else %}
+        <p>Por favor, <a href="{% url 'iniciar sesion' %}">inicia sesión</a>.</p>
+    {% endif %}
     <p>
     {% block content %} {% endblock %}
     </p>

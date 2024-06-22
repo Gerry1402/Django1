@@ -2,6 +2,7 @@ import pycountry
 import gettext
 import re
 
+
 def validate_password_format(contrasena, contrasena_2):
     errores = []
     if contrasena != contrasena_2:

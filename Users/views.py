@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import Part
-from django.contrib.auth import authenticate, login
-from .decorators import login_required
+from .forms import Particular_form, iniciar_sesion_form
+from django.contrib.auth import authenticate, login, logout
 
-@login_required
 def principal(request):
     return render(request, '0_principal.html')
 
@@ -17,23 +15,34 @@ def segundo(request):
 
 def registro(request):
     if request.method == 'POST':
-        form = Part(request.POST)
-        form
+        form = Particular_form(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            login(request, user)
             return redirect('principal')
     else:
-        form = Part()
+        form = Particular_form()
     return render(request, 'registro.html', {'form': form})
 
 def iniciar_sesion(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            request.session['user_id'] = user.id
-            return redirect('principal')  # Redirige a la página de inicio o a donde prefieras
-        else:
-            return render(request, 'login.html', {'error': 'Usuario o contraseña incorrectos'})
-    return render(request, 'login.html')
+        form = iniciar_sesion_form(request.POST)
+        if form.is_valid():
+            usuario = form.cleaned_data['usuario']
+            password = form.cleaned_data['password']
+            print(usuario, password)
+            user = authenticate(request, usuario=usuario, password=password)
+            print(user)
+            if user is not None:
+                login(request, user)
+                return redirect('principal')
+            else:
+                return render(request, 'login.html', {'form': form, 'error': 'Invalid credentials'})
+    else:
+        form = iniciar_sesion_form()
+    return render(request, 'login.html', {'form': form})
+
+def cerrar_sesion(request):
+    logout(request)
+    # Redirigir a la página de inicio u otra página después de cerrar sesión
+    return redirect('principal')
