@@ -7,6 +7,6 @@ urlpatterns = [
     path('primero/', primero, name='primero'),
     path('segundo/', segundo, name='segundo'),
     path('registro/', registro, name="registro"),
-    path('iniciar-sesion/', LoginView.as_view(template_name='login.html'), name="iniciar sesion"),
-    path('cerrar-sesion/', LogoutView.as_view(template_name='cerrar_sesion.html'), name="cerrar sesion"),
+    path('iniciar-sesion/', iniciar_sesion, name="iniciar sesion"),
+    path('cerrar-sesion/', cerrar_sesion, name="cerrar sesion"),
 ]

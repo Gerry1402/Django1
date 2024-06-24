@@ -1,6 +1,34 @@
-<h2>Registro</h2>
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Registrarse</button>
-</form>
+{% extends "plantilla_forms.html" %}
+{% load static %}
+{% block title %}Registro{% endblock %}
+{% block content %}
+
+{% if form.errors %}
+<div id="alerta">
+  <ul>
+    {% for field in form %}
+    <li>{{ field.errors}}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif%}
+
+<div class="contenedor">
+  <h1>Registarse como usuario</h1>
+  <form method="POST">
+    {% csrf_token %}
+      <div class="campos">
+        {% for field in form %}
+        <div class = 'campo {{ field.label }}'>
+          <label class="etiqueta" for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{field}}
+        </div>
+        {% endfor %}
+        <div>
+          <button type="submit" class='boton-1'>Registrarse</button>
+        </div>
+      </div>
+  </form>
+  <a href="{% url 'iniciar sesion' %}"><button class="boton-2">¿Ya tienes cuenta? Inicia sesion</button></a>
+</div>
+{% endblock %}

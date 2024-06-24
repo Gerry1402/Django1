@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import Particular_form, iniciar_sesion_form
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 def principal(request):
     return render(request, '0_principal.html')
@@ -19,6 +20,7 @@ def registro(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            messages.success(request, ("Registro completado con éxito"))
             return redirect('principal')
     else:
         form = Particular_form()

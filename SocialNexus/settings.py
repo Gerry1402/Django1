@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'phonenumber_field',
     'Users',
 ]
@@ -133,6 +132,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'Users.Particular'
-LOGIN_REDIRECT_URL = 'principal'
-LOGOUT_REDIRECT_URL = 'principal'
+AUTH_USER_MODEL = 'Users.Usuario'
+LOGIN_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = '/'
